@@ -18,3 +18,4 @@ This example is from dilipsundarraj1 git.
 ## Useful Links
 1. http://wiremock.org/docs/response-templating/
 2. http://wiremock.org/docs/request-matching/
+3. http://wiremock.org/docs/simulating-faults/

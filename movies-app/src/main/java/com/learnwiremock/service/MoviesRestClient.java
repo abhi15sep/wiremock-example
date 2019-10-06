@@ -184,4 +184,46 @@ public class MoviesRestClient {
        return response;
 
     }
+
+    public String deleteMovie(Integer movieId){
+
+        try{
+            return webClient.delete().uri(MOVIE_BY_ID_PATH_PARAM_V1, movieId)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+        }catch (WebClientResponseException ex) {
+            log.error("WebClientResponseException in deleteMovie. Status code is {} and the message is {} ", ex.getRawStatusCode(), ex.getResponseBodyAsString());
+            throw new MovieErrorResponse(ex.getStatusText(), ex);
+        } catch (Exception ex) {
+            log.error("Exception in deleteMovie and the message is {} ", ex);
+            throw new MovieErrorResponse(ex);
+        }
+    }
+
+    public String deleteMovieByName(String movieName){
+
+        try{
+            String deleteMovieByNameURI = UriComponentsBuilder.fromUriString(MOVIE_BY_NAME_QUERY_PARAM_V1)
+                    .queryParam("movie_name", movieName)
+                    .buildAndExpand()
+                    .toUriString();
+
+            webClient.delete().uri(deleteMovieByNameURI)
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .block();
+
+        }catch (WebClientResponseException ex) {
+            log.error("WebClientResponseException in deleteMovie. Status code is {} and the message is {} ", ex.getRawStatusCode(), ex.getResponseBodyAsString());
+            throw new MovieErrorResponse(ex.getStatusText(), ex);
+        } catch (Exception ex) {
+            log.error("Exception in deleteMovie and the message is {} ", ex);
+            throw new MovieErrorResponse(ex);
+        }
+
+        return "Movie Deleted Successfully";
+    }
+
 }
