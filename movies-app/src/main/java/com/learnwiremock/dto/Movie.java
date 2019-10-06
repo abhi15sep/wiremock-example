@@ -18,9 +18,9 @@ public class Movie {
 
     private String name;
 
-    private Integer year;
-
     private String cast;
+
+    private Integer year;
 
     private LocalDate release_date;
 }
